@@ -5,20 +5,19 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 public class CSVReader {
 	ArrayList<ID> lista = new ArrayList<ID>();
-	Vertex[] vertices = new Vertex[735];
-	Edge[] edges = new Edge[1500];
+
 	
 	//Greedy graph;
     public CSVReader() throws ParseException {
         String csvFile = "C:\\Users\\shell\\Desktop\\uruguay.csv";
         String line = "";
         String cvsSplitBy = ";";
-        int v = 0;
+        int v = 1;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        	lista.add(new ID(0,0,0));
             while ((line = br.readLine()) != null) {
             	
                 String[] data = line.split(cvsSplitBy);
@@ -28,48 +27,26 @@ public class CSVReader {
 					Number listArray = format.parse(data[i].trim());
 					floatArray[i] = listArray.doubleValue();
             	}
-            	Vertex vnew = new Vertex(String.valueOf(floatArray[0]));
-            	vnew.adjacencies = new Edge[100];
-                vertices[v]= vnew;
-        		lista.add(new ID(floatArray[1], floatArray[2]));
-                v++;
-            	
+            	ID id = new ID(v,floatArray[1], floatArray[2]);
+            	for(int i=3;i<data.length-1;i++){
+            		
+            			//double weight = Math.hypot(lista.get((int) (floatArray[0]-1)).x -lista.get((int) (floatArray[i]-1)).x , lista.get((int) (floatArray[0]-1)).y -lista.get((int) (floatArray[i]-1)).y );
+            		
+            			id.addCity(String.valueOf((int)floatArray[i]));
+     
+    					
+            		
+        		
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-             v = 0;
-             //for(int i=0;i<lista.size();i++)
-         	//	System.out.println(lista.get(i).x);
-            while ((line = br.readLine()) != null) {
-            	int edg = 0;
-                String[] data = line.split(cvsSplitBy);
-                double[] floatArray = new double[data.length];
-            	for(int i=0;i<data.length-1;i++){
-            	    NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
-					Number listArray = format.parse(data[i].trim());
-					floatArray[i] = listArray.doubleValue();	
-            	}
-            	
-
-            	for(int i=0;i<data.length-1;i++){
-            		if(i>=3){
-            			double weight = (double) Math.sqrt(Math.pow((lista.get((int) (floatArray[0]-1)).x -lista.get((int) (floatArray[i]-1)).x ),2)+
-                				Math.pow((lista.get((int) (floatArray[0]-1)).y -lista.get((int) (floatArray[i]-1)).y ),2));
-            			vertices[v].adjacencies[edg] = new Edge(vertices[(int)(floatArray[i]-1)],weight);
-
-    					edg++;
-            		}
-            	}
+            	lista.add(id);
             	v++;
+            	
             }
-            
-          
-
-        } catch (IOException e) {
+        }
+         catch (IOException e) {
             e.printStackTrace();
         }
+        
         
        
 

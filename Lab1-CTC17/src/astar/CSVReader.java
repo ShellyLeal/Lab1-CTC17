@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 public class CSVReader {
 	ArrayList<ID> lista = new ArrayList<ID>();
@@ -32,6 +31,7 @@ public class CSVReader {
             	vnew.adjacencies = new Edge[100];
                 vertices[v]= vnew;
         		lista.add(new ID(floatArray[1], floatArray[2]));
+        		
                 v++;
             	
             }
@@ -51,15 +51,16 @@ public class CSVReader {
 					Number listArray = format.parse(data[i].trim());
 					floatArray[i] = listArray.doubleValue();	
             	}
-            	
-            	vertices[v].toGoal = (double) Math.sqrt(Math.pow((lista.get(v).x -lista.get(602).x ),2)+
-           				Math.pow((lista.get(v).y -lista.get(602).y),2));
+            	vertices[v].toGoal = Math.hypot(lista.get(602).x -lista.get(v).x , lista.get(602).y 
+            			-lista.get(v).y );
+
+
             	for(int i=0;i<data.length-1;i++){
             		if(i>=3){
-            			double weight = (double) Math.sqrt(Math.pow((lista.get((int) (floatArray[0]-1)).x -lista.get((int) (floatArray[i]-1)).x ),2)+
-                				Math.pow((lista.get((int) (floatArray[0]-1)).y -lista.get((int) (floatArray[i]-1)).y ),2));
+            			double weight = Math.hypot(lista.get((int) (floatArray[0]-1)).x -lista.get((int) (floatArray[i]-1)).x , lista.get((int) (floatArray[0]-1)).y -lista.get((int) (floatArray[i]-1)).y );
+            		
             			vertices[v].adjacencies[edg] = new Edge(vertices[(int)(floatArray[i]-1)],weight);
-            			
+
     					edg++;
             		}
             	}
@@ -71,9 +72,10 @@ public class CSVReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+        
        
 
 
     }
 
+}

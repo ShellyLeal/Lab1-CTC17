@@ -13,6 +13,7 @@ class Vertex implements Comparable<Vertex>
 {
 public final String name;
 public double toGoal;
+public double toStart;
 public Edge[] adjacencies;
 public double minDistance = Double.POSITIVE_INFINITY;
 public Vertex previous;
@@ -29,6 +30,8 @@ class Edge
 public final Vertex target;
 public final double weight;
 public double toGoal;
+public double toStart;
+
 public Edge(Vertex argTarget, double argWeight)
 { target = argTarget; weight = argWeight; }
 }
@@ -50,7 +53,7 @@ while (!vertexQueue.isEmpty()) {
     		break;
         Vertex v = e.target;
         double weight = e.weight;
-        double distanceThroughU = u.minDistance + weight;
+        double distanceThroughU = u.minDistance + v.toGoal;
         double d = distanceThroughU;
 if (d < v.minDistance) {
     vertexQueue.remove(v);
