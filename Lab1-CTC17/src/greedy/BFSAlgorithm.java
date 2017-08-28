@@ -26,10 +26,7 @@ public class BFSAlgorithm {
 		sucessores.add(cidades.get(start));
 		while(!sucessores.isEmpty()){ 
 			actualCity = sucessores.removeFirst();
-			if(actualCity.id == dest){
-				System.out.println("Final = "+actualCity.id);
-				
-				//Calculando custo e caminho
+			if(actualCity.id == dest){				
 				int index = dest;
 				int counter = 0;
 				while(index != start){
@@ -37,14 +34,12 @@ public class BFSAlgorithm {
 					cost = cost+actualCity.costTo;
 					index = actualCity.fromID;
 					actualCity = cidades.get(index);
-					//System.out.println("ID = "+index);
 				}
 				System.out.println("Custo = "+cost);
 				System.out.println("Contador = "+counter);
 				return cost;
 			}
 			else{
-				//Ordenando a prioridade por custo dos vizinhos
 				vizIDs = actualCity.adjList;
 				viz.clear();
 				for(int i = 0; i < actualCity.adjList.size(); i++){
@@ -64,7 +59,6 @@ public class BFSAlgorithm {
 						sucessores.add(actViz);
 					}
 				}
-				//Reordenar a fila
 				Collections.sort(sucessores);
 			}
 		}
@@ -82,16 +76,9 @@ public class BFSAlgorithm {
 		return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
 		
 	}
-	public static void printData(CSVReader c){
-		for(int i = 0; i < c.lista.size(); i++){
-			ID aux = c.lista.get(i);
-			System.out.println("ID = "+String.valueOf(aux.id)+";  X = "+String.valueOf(aux.x)+";  Num viz = "+String.valueOf(aux.adjList.size()));
-		}
-		
-	}
+	
 	public static void main(String[] args) throws ParseException{
 		CSVReader c = new CSVReader();
-		//printData(c);
 		BFSAlgorithm BFS = new BFSAlgorithm(c.lista);
 		BFS.run(203, 600);
 
