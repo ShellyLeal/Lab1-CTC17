@@ -1,6 +1,9 @@
 package astar;
 
 import java.util.PriorityQueue;
+
+
+
 import java.util.List;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -39,23 +42,23 @@ public static void computePaths(Vertex source)
     vertexQueue.add(source);
 
 while (!vertexQueue.isEmpty()) {
-    Vertex u = vertexQueue.poll();
-        // Visit each edge exiting u
-        for (Edge e : u.adjacencies)
-        {   if(e==null)
-        		break;
-            Vertex v = e.target;
-            double weight = e.weight;
-            double distanceThroughU = u.minDistance + weight;
-            double heuristicdistance = distanceThroughU+u.toGoal;
-    if (heuristicdistance < v.minDistance) {
-        vertexQueue.remove(v);
-        v.minDistance = heuristicdistance;
-        v.previous = u;
-        vertexQueue.add(v);
+	Vertex u = vertexQueue.poll();
+    // Visit each edge exiting u
+
+    for (Edge e : u.adjacencies)
+    {   if(e==null)
+    		break;
+        Vertex v = e.target;
+        double weight = e.weight;
+        double distanceThroughU = u.minDistance + weight;
+if (distanceThroughU < v.minDistance) {
+    vertexQueue.remove(v);
+    v.minDistance = distanceThroughU ;
+    v.previous = u;
+    vertexQueue.add(v);
+}
     }
-        }
-    }
+}
 }
 
 public static List<Vertex> getShortestPathTo(Vertex target)
