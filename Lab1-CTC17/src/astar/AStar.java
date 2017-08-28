@@ -51,7 +51,8 @@ while (!vertexQueue.isEmpty()) {
         Vertex v = e.target;
         double weight = e.weight;
         double distanceThroughU = u.minDistance + weight;
-if (distanceThroughU < v.minDistance) {
+        double d = distanceThroughU;
+if (d < v.minDistance) {
     vertexQueue.remove(v);
     v.minDistance = distanceThroughU ;
     v.previous = u;

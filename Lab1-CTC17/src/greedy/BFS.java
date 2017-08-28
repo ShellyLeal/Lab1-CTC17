@@ -27,7 +27,7 @@ public Edge(Vertex argTarget, double argWeight)
 { target = argTarget; weight = argWeight; }
 }
 
-class Dijkstra
+class BFS
 {
 public static void computePaths(Vertex source)
 {
