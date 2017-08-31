@@ -73,7 +73,7 @@ public class BFSAlgorithm {
 		x2 = c2.x;
 		y1 = c1.y;
 		y2 = c2.y;
-		return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));
+		return Math.hypot((x1-x2),(y1-y2));
 		
 	}
 	
